@@ -7,6 +7,30 @@ import "fmt"
 // 	fmt.Println("Hi there")
 // }
 
+func main(){
+	fmt.Println("Nerdephone: go-twitter bot v0.01")
+	creds := Credentials{
+		AccessToken: 		os.GetEnv("ACCESS_TOKEN")
+		AccessTokenSecret	os.GetEnv("ACCESS_TOKEN_SECRET")
+		ConsumerKey			os.GetEnv("CONSUMER_KEY")
+		ConsumerSecret		os.GetEnv("CONSUMER_SECRET")
+
+	}
+
+	fmt.Printf("%+v\n", creds)
+
+	client, err := getClient(&creds)
+	if err != nil {
+		log.Println("Error getting Twitter Client")
+		log.Println(err)
+	}
+
+	// print out the pointer to the client for now so it does not throw errors
+
+	fmt.Printf("%+v\n", clinet)
+
+}
+
 import (
   //project imports
 	"github.com/dghubble/go-twitter/twitter"
