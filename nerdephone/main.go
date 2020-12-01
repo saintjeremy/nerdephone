@@ -3,6 +3,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
 )
@@ -58,9 +59,9 @@ func getClient(creds *Credentials) (*twitter.Client, error) {
 
 	//verify credentials
 
-	verifyParams := &twitter.AccountVerifyingParams{
+	verifyParams := &twitter.AccountVerifyParams{
 		SkipStatus:  twitter.Bool(true),
-		InclueEmail: twitter.Bool(true),
+		IncludeEmail: twitter.Bool(true),
 	}
 
 	//retrieve and verify if the creds used will allow login
@@ -68,3 +69,8 @@ func getClient(creds *Credentials) (*twitter.Client, error) {
 	user, _, err := client.Accounts.VerifyCredentials(verifyParams)
 	if err != nil {
 		return nil, err
+	}
+
+	log.Printf("User's ACCOUNT:\n%+v\n", user)
+	return client, nil
+}
