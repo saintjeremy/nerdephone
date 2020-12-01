@@ -1,19 +1,23 @@
 //testing go locally
 package main
- 
-import "fmt"
- 
+
+import (
+	"fmt"
+	"github.com/dghubble/go-twitter/twitter"
+	"github.com/dghubble/oauth1"
+)
+
 // func main() {
 // 	fmt.Println("Hi there")
 // }
 
-func main(){
+func main() {
 	fmt.Println("Nerdephone: go-twitter bot v0.01")
 	creds := Credentials{
-		AccessToken: 		os.GetEnv("ACCESS_TOKEN"),
-		AccessTokenSecret:	os.GetEnv("ACCESS_TOKEN_SECRET"),
-		ConsumerKey:		os.GetEnv("CONSUMER_KEY"),
-		ConsumerSecret:		os.GetEnv("CONSUMER_SECRET"),
+		AccessToken:       os.GetEnv("ACCESS_TOKEN"),
+		AccessTokenSecret: os.GetEnv("ACCESS_TOKEN_SECRET"),
+		ConsumerKey:       os.GetEnv("CONSUMER_KEY"),
+		ConsumerSecret:    os.GetEnv("CONSUMER_SECRET"),
 	}
 
 	fmt.Printf("%+v\n", creds)
@@ -30,25 +34,17 @@ func main(){
 
 }
 
-// !project imports no longer exist
-
-import (
-  //project imports
-	"github.com/dghubble/go-twitter/twitter"
-	"github.com/dghubble/oauth1"
-)
-
 // CREDENTIALS størs all access/consumer tokens and secret keys needed to auth against the twitter API
 
 type Credentials struct {
-	ConsumerKey			string
-	ConsumerSecret		string
-	AccessToken			string
-	AccessTokenSecret 	string
+	ConsumerKey       string
+	ConsumerSecret    string
+	AccessToken       string
+	AccessTokenSecret string
 }
 
 // getClient is a help function that will return a twitter client which can be used to send or stream tweets
-// this will ingest a pointer and it direct to the Credential struct which will contain necessary data to authenticate 
+// this will ingest a pointer and it direct to the Credential struct which will contain necessary data to authenticate
 // and return a pointer to a twitter client or an error
 
 func getClient(creds *Credentials) (*twitter.Client, error) {
@@ -63,8 +59,8 @@ func getClient(creds *Credentials) (*twitter.Client, error) {
 	//verify credentials
 
 	verifyParams := &twitter.AccountVerifyingParams{
-		SkipStatus:		twitter.Bool(true),
-		InclueEmail: 	twitter.Bool(true),
+		SkipStatus:  twitter.Bool(true),
+		InclueEmail: twitter.Bool(true),
 	}
 
 	//retrieve and verify if the creds used will allow login
@@ -72,6 +68,3 @@ func getClient(creds *Credentials) (*twitter.Client, error) {
 	user, _, err := client.Accounts.VerifyCredentials(verifyParams)
 	if err != nil {
 		return nil, err
-	}
-	log.Printf("Users's ACCOUNT:\n%+v\n", user)
-}
