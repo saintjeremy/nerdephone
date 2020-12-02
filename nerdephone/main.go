@@ -3,7 +3,8 @@ package main
 
 import (
 	"fmt"
-	"os"
+	"os/user"
+	"log"
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
 )
@@ -70,7 +71,7 @@ func getClient(creds *Credentials) (*twitter.Client, error) {
 	if err != nil {
 		return nil, err
 	}
-
+ 
 	log.Printf("User's ACCOUNT:\n%+v\n", user)
 	return client, nil
 }
